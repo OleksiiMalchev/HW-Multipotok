@@ -26,12 +26,12 @@ public class ValueCalculator extends Thread {
         Thread secondThread = new Thread(secondValueCalculator);
         firstThread.start();
         secondThread.start();
+        firstThread.join();
+        secondThread.join();
         double[] result = DoubleStream
                 .concat(Arrays.stream(firstArray),
                         Arrays.stream(secondArray))
                 .toArray();
-        firstThread.join();
-        secondThread.join();
         long timeToComplete = System.currentTimeMillis() - start;
         System.out.println("Elapsed time from start to finish of the program: " + timeToComplete + " millisecond");
     }
